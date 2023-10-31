@@ -1,6 +1,6 @@
-int  R = 9;
+int  R = 11;
 int  G = 10;
-int  B = 11;
+int  B = 9;
 
 void setup() {
   pinMode(R, OUTPUT);
