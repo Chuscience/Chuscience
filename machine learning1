@@ -1,0 +1,52 @@
+#include <Servo.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,16, 2);    //lcd주고 확인 후 수정 가능
+
+Servo servo;
+int servopin=9;
+int angle=0;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  servo.attach(servopin);
+  lcd.init();  // LCD초기 설정
+  lcd.backlight(); // LCD초기 설정  
+  lcd.setCursor(0,0); 
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ if(Serial.available()>0){
+  byte actionCode=Serial.read();
+  lcd.clear();
+  
+  switch(actionCode){
+    case 1:
+      angle=180;
+      lcd.print("Cell Phone");
+      break;
+      
+    case 2:
+      angle=120;
+      lcd.print("Cup");
+      break;
+      
+    case 3:
+      angle=60;
+      lcd.print("My Hand");
+      break;
+
+     case 4:
+      angle=0;
+      lcd.print("Nothing");
+      break;
+
+    default :
+      break;
+  }
+ }
+ servo.write(angle);
+}
